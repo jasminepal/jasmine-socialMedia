@@ -1,0 +1,33 @@
+<p>
+  <strong>Title:</strong>
+  <%= @socio.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @socio.description %>
+</p>
+
+<% if @socio.image.present? %>
+  <p>
+    <strong>Image:</strong>
+    <%= image_tag @socio.image.url %>
+  </p>
+<% end %>
+
+<% if @socio.video.present? %>
+  <p>
+    <strong>Video:</strong>
+    <%= video_tag @socio.video.url %>
+  </p> 
+<% end %>
+
+<% @socios.each do |socio| %>
+  <%= link_to "Like", like_socio_path(socio), method: :post, class: 'btn btn-primary' %>
+<% end %>
+
+
+
+<%= button_to 'Delete', socio_path(@socio), method: :delete, data: { confirm: 'Are you sure you want to log out?' } %> |
+<%= link_to 'Edit', edit_socio_path(@socio) %> |
+<%= link_to 'Back', socios_path %>
