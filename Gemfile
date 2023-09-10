@@ -74,3 +74,4 @@ end
 gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
+# gem 'webpacker', '5.4.0'

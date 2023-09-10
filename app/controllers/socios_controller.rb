@@ -1,5 +1,5 @@
 class SociosController < ApplicationController
-    # before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+    before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
     # before_action :set_socio, only: [:edit, :update, :destroy]
     
 
@@ -40,6 +40,7 @@ class SociosController < ApplicationController
     end
     
     def destroy
+        @socio = Socio.find(params[:id])
         @socio.destroy
         redirect_to socios_url, notice: 'Socio was successfully destroyed.'
     end
@@ -55,6 +56,7 @@ class SociosController < ApplicationController
     end
 
     def like
+        @socios = Socio.includes(:likes).all
         @socio = Socio.find(params[:id])
         current_user.likes.create(socio: @socio)
         redirect_to socios_path, notice: 'You liked this socio.'

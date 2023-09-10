@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :socios
-  has_many :likes
+  has_many :likes, dependent: :destroy
 
+  def likes?(socio)
+    likes.where(socio_id: socio.id).exists?
+  end
+  
   mount_uploader :avatar, AvatarUploader
 
   validates :name, :dob, :gender, presence: true

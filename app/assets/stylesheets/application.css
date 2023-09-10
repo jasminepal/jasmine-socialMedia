@@ -24,9 +24,20 @@
   }
 
   /* Socio styles */
-  h2 {
+  .socio h2 {
     color: red; /* Socio title color */
+    border-bottom: 2px solid red; /* Add red border to the bottom of the title */
+    padding-bottom: 5px; /* Add some padding between text and border */
   }
+
+  /* Socio title styles with different text color */
+  .socio h2 {
+    color: orange; /* Text color for the title */
+    border-bottom: 2px solid red; /* Add a red border to the bottom of the title */
+    padding-bottom: 5px; /* Add some padding between text and border */
+  } 
+
+
 
   /* Image styles */
   .round-image {
@@ -43,10 +54,13 @@
     color: red; /* Meta information color */
   }
 
-  /* Video styles */
-  video {
+  /* Video and image styles */
+  video,
+  img {
     display: block;
-    margin: 0 auto; /* Center video horizontally */
+    margin: 0 auto; /* Center horizontally */
+    max-width: 100%; /* Ensure media doesn't overflow container */
+    
   }
 
   /* User information styles */
@@ -66,7 +80,7 @@
     margin: 0 auto;
     padding: 20px;
     background-color: #3a3131;
-    border: 1px solid #ddd;
+    border: 1px solid #030000;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -79,7 +93,7 @@
     
     border-radius: 3px;
     
-    color: #ffffff;
+    color: #000000;
     
   }
 
@@ -91,7 +105,7 @@
     margin: 0 auto;
     padding: 20px;
     background-color: #3a3131;
-    border: 1px solid #ddd;
+    border: 10px solid #000000;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -101,36 +115,43 @@
     margin-bottom: 20px;
   }
   
-  /* Socio Styles
-  .socio {
-    padding: 20px;
-    border: 100px solid #ffffff;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .socio h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  /* Like Button and Like Count Styles */
-  /* .socio-actions {
+  header {
+    background-color: #391b1b; /* Set your desired background color */
+    color: white;
     display: flex;
-    align-items: center;
-  } */
-  
-  /* .btn-primary {
-    background-color: #007bff;
-    color: #fff;
+    justify-content: space-between; /* Space out the left and right sections */
+    align-items: center; /* Vertically center content */
+    padding: 10px 20px; /* Add padding for spacing */
+  }
+
+  .left-section {
+    font-size: 18px; /* Font size for the Home link */
+    margin-right: 20px; /* Add spacing to the right of the Home link */
   }
   
-  .btn-primary:hover {
-    background-color: #0056b3;
-  } */
-  
-  /* .like-count {
-    margin-left: 10px;
-    color: #007bff;
+  .right-section {
+    display: flex; /* Align items in a row */
+    align-items: center; /* Vertically center content */
   }
-   */ 
+
+  .right-section img.round-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .right-section button.btn.btn-danger {
+    background-color: red; /* Set the background color for the Log Out button */
+    color: white; /* Text color for the Log Out button */
+    border: none; /* Remove button border */
+    padding: 5px 10px; /* Add padding to the Log Out button */
+    cursor: pointer; /* Change cursor on hover */
+  }
+
+  .user-info {
+    display: flex; /* Display avatar and text in a row */
+    align-items: center; /* Vertically center content */
+  }
+  
+  .user-info img.round-image {
+    margin-right: 1000px; /* Add spacing between avatar and text */
+  }

@@ -22,11 +22,23 @@
   </p> 
 <% end %>
 
-<% @socios.each do |socio| %>
-  <%= link_to "Like", like_socio_path(socio), method: :post, class: 'btn btn-primary' %>
-<% end %>
 
 
+  <% if user_signed_in? %>
+    <% if @socio.likes.where(user_id: current_user.id).exists? %>
+      <%= link_to 'Unlike', [@socio, @socio.likes.find_by(user: current_user)], method: :delete, class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to 'Like', [@socio, @socio.likes.build(user: current_user)], method: :post, class: 'btn btn-primary' %>
+    <% end %>
+
+    <button
+    id="like-toggle"
+    data-socio-id="<%= @socio.id %>"
+    data-liked="<%= current_user.likes?(@socio) %>"
+    >
+    <%= current_user.likes?(@socio) ? 'Unlike' : 'Like' %>
+    </button>
+  <% end %>
 
 <%= button_to 'Delete', socio_path(@socio), method: :delete, data: { confirm: 'Are you sure you want to log out?' } %> |
 <%= link_to 'Edit', edit_socio_path(@socio) %> |
