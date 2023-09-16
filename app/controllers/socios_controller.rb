@@ -11,6 +11,7 @@ class SociosController < ApplicationController
 
     def show
         @socio = Socio.find(params[:id])
+        @like = current_user.likes.find_by(socio: @socio)
         # The @blog_post instance variable is already set by set_blog_post method
     end
     

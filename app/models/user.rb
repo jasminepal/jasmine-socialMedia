@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :socios
-  has_many :likes, dependent: :destroy
+  has_many :likes
 
   def likes?(socio)
     likes.where(socio_id: socio.id).exists?

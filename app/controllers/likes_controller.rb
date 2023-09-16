@@ -1,41 +1,43 @@
 
 class LikesController < ApplicationController
     before_action :authenticate_user! # Ensure users are logged in
-  
+    before_action :find_socio
+    before_action :find_like, only: [:destroy]
+    skip_before_action :verify_authenticity_token, only: [:update]
     def create
       @socio = Socio.find(params[:socio_id])
-      like = current_user.likes.build(socio: @socio)
-      if like.save
-        flash[:success] = 'You liked this post.'
+      # like = current_user.likes.build(socio: @socio)
+      if already_liked?
+        flash[:notice] = 'You cannot like more than once'
       else
-        flash[:error] = 'Error liking the post.'
+        @socio.likes.create(user_id: current_user.id)
       end
-      redirect_to @socio
+      redirect_to socio_path(@socio)
     end
   
     def destroy
-      @like = Like.find(params[:id])
-      if @like.destroy
-        flash[:success] = 'You unliked this post.'
+      # @like = Like.find(params[:id])
+      if !(already_liked?)
+        flash[:notice] = 'Cannot unlike'
       else
-        flash[:error] = 'Error unliking the post.'
+        @like.destroy
       end
-      redirect_to @like.socio
+      redirect_to socio_path(@socio)
+    end
+    
+    private
+    
+    def find_socio
+      @socio = Socio.find_by(id: params[:id])
     end
 
-    def like_toggle
-        @socio = Socio.find(params[:socio_id])
-        @like = @socio.likes.find_or_initialize_by(user: current_user)
-    
-        if @like.new_record?
-          @like.save
-          flash[:success] = 'You liked this post.'
-        else
-          @like.destroy
-          flash[:success] = 'You unliked this post.'
-        end
-    
-        redirect_to @socio
+    def already_liked?
+      Like.where(user_id: current_user.id, socio_id: params[:socio_id]).exists?
     end
+
+    def find_like
+      @like = @socio.likes.find(params[:id])
+    end
+    
   end
   
