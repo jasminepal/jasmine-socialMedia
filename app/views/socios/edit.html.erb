@@ -1,7 +1,10 @@
 <h1>Edit Post</h1>
 
 <%= render 'form' %>
-
+<%= form_for @socio do |f| %>
+  <!--%= f.submit "Update" %-->
+<% end %>
 <%= link_to 'Show', @socio %> |
 <%= link_to 'Back', socios_path %>
+
 <!--%= link_to "Like", like_socio_path(socio), method: :post, class: 'btn btn-primary' %-->

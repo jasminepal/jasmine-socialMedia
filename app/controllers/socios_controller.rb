@@ -29,10 +29,11 @@ class SociosController < ApplicationController
     end
     
     def edit
-        
+        @socio = Socio.find(params[:id])
     end
     
     def update
+        @socio = Socio.find(params[:id])
         if @socio.update(socio_params)
           redirect_to @socio, notice: 'Socio was successfully updated.'
         else
