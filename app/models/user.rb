@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :socios
   has_many :likes
+  has_many :comments
 
   def likes?(socio)
     likes.where(socio_id: socio.id).exists?

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :socios do
     resources :likes, only: [:create, :destroy]
   end
+  resources :socios do
+    resources :comments, only: [:create, :destroy]
+  end
+  
   root "socios#index"
 end
-# 

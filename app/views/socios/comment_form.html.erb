@@ -1,0 +1,9 @@
+<%# <h2>Add a Comment</h2>
+<%= form_for([@socio, @socio.comments.build]) do |f| %>
+  <%# <div class="field">
+    <%= f.text_area :content, placeholder: 'Write your comment here' %>
+  <%# </div>
+  <div class="actions">
+    <%= f.submit 'Submit Comment' %>
+  <%# </div>
+<%# <% end %>

@@ -3,8 +3,9 @@ class LikesController < ApplicationController
     before_action :authenticate_user! # Ensure users are logged in
     before_action :find_socio
     before_action :find_like, only: [:destroy]
-    skip_before_action :verify_authenticity_token, only: [:update]
+    # skip_before_action :verify_authenticity_token, only: [:update]
     def create
+      binding.pry
       @socio = Socio.find(params[:socio_id])
       # like = current_user.likes.build(socio: @socio)
       if already_liked?
