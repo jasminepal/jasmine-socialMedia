@@ -9,5 +9,14 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   
+  resources :relationships, only: [:create, :destroy]
   root "socios#index"
 end
+
+
+# resources :users do
+#   member do
+#     post 'follow'
+#     delete 'unfollow'
+#   end
+# end

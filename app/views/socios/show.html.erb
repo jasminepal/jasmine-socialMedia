@@ -46,6 +46,22 @@
 
 
 
+
+
+
+
+
+
+<% user_to_follow = @socio.user %>
+
+<% unless current_user.following?(user_to_follow) %>
+  <%= link_to 'Follow', relationships_path(user_id: user_to_follow.id), method: :post %>
+<% else %>
+  <%= link_to 'Unfollow', relationship_path(current_user.active_relationships.find_by(followed_id: user_to_follow.id)), method: :delete %>
+<% end %>
+
+
+
 <%= button_to 'Delete', socio_path(@socio), method: :delete, data: { confirm: 'Are you sure you want to log out?' } %> |
 <%= link_to 'Edit', edit_socio_path(@socio) %> |
 <%= link_to 'Back', socios_path %>

@@ -7,6 +7,23 @@ class User < ApplicationRecord
   has_many :likes
   has_many :comments
 
+
+
+  # Define the relationships
+  has_many :active_relationships, class_name: 'Relationship',
+                                 foreign_key: 'follower_id',
+                                 dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+
+  has_many :passive_relationships, class_name: 'Relationship',
+                                  foreign_key: 'followed_id',
+                                  dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
+
+
+
+
+
   def likes?(socio)
     likes.where(socio_id: socio.id).exists?
   end
@@ -16,5 +33,31 @@ class User < ApplicationRecord
   validates :name, :dob, :gender, presence: true
 
 
-  private
+  
+
+
+
+    # Follow a user
+    def follow(other_user)
+      following << other_user
+    end
+  
+    # Unfollow a user
+    def unfollow(other_user)
+      following.delete(other_user)
+    end
+  
+    # Check if the current user is following another user
+    def following?(other_user)
+      following.include?(other_user)
+    end
+
+    def followers_count
+      followers.count
+    end
+  
+    def following_count
+      following.count
+    end
+
 end
