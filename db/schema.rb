@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_22_152034) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_182316) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
@@ -21,6 +21,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_152034) do
     t.index ["socio_id"], name: "index_comments_on_socio_id"
   end
 
+  create_table "followeds", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_followeds_on_followed_id"
+    t.index ["follower_id"], name: "index_followeds_on_follower_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
@@ -28,6 +37,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_152034) do
     t.datetime "updated_at", null: false
     t.integer "socio_id", null: false
     t.index ["socio_id"], name: "index_likes_on_socio_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "socios", force: :cascade do |t|
@@ -58,5 +76,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_152034) do
   end
 
   add_foreign_key "comments", "socios"
+  add_foreign_key "followeds", "users", column: "followed_id"
+  add_foreign_key "followeds", "users", column: "follower_id"
   add_foreign_key "likes", "socios"
+  add_foreign_key "relationships", "followeds"
+  add_foreign_key "relationships", "followers"
 end

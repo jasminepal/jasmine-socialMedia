@@ -13,10 +13,3 @@ Rails.application.routes.draw do
   root "socios#index"
 end
 
-
-# resources :users do
-#   member do
-#     post 'follow'
-#     delete 'unfollow'
-#   end
-# end
