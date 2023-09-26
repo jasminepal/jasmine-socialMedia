@@ -18,15 +18,16 @@
 <% if @socio.video.present? %>
   <p>
     <strong>Video:</strong>
-    <%= video_tag @socio.video.url %>
+    <video width="500" controls>
+      <source src="<%= @socio.video.url %>" type="video/mp4">
+    </video>
   </p> 
 <% end %>
 
-
 <p><%= @socio.likes.count %> <%= (@socio.likes.count) == 1 ? 'Like' : 'Likes'%></p>
-<% pre_like = @socio.likes.find { |like| like.user_id == current_user.id} %>
+<% pre_like = @socio.likes.find { |like| like&.user_id == current_user&.id} %>
 <% if pre_like %>
-  <%= button_to 'Unlike', socio_likes_path(@socio, pre_like), method: :delete %>
+  <%= button_to 'Unlike', socio_like_path(@socio, pre_like.id), method: :delete %>
 <% else %>
   <%= button_to 'Like', socio_likes_path(@socio), method: :post%>
 <% end %>
@@ -54,7 +55,7 @@
 
 <% user_to_follow = @socio.user %>
 
-<% unless current_user.following?(user_to_follow) %>
+<% unless current_user&.following?(user_to_follow) %>
   <%= button_to 'Follow', relationships_path(user_id: user_to_follow.id), method: :post %>
 <% else %>
   <%= button_to 'Unfollow', relationship_path(current_user.active_relationships.find_by(followed_id: user_to_follow.id)), method: :delete %>

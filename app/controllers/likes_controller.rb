@@ -5,7 +5,6 @@ class LikesController < ApplicationController
     before_action :find_like, only: [:destroy]
     # skip_before_action :verify_authenticity_token, only: [:update]
     def create
-      binding.pry
       @socio = Socio.find(params[:socio_id])
       # like = current_user.likes.build(socio: @socio)
       if already_liked?
@@ -37,6 +36,7 @@ class LikesController < ApplicationController
     end
 
     def find_like
+      @socio = Socio.find(params[:socio_id])
       @like = @socio.likes.find(params[:id])
     end
     

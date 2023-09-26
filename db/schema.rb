@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_182316) do
   create_table "socios", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.string "title"
     t.text "description"
     t.string "image"
@@ -81,4 +81,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_182316) do
   add_foreign_key "likes", "socios"
   add_foreign_key "relationships", "followeds"
   add_foreign_key "relationships", "followers"
+  add_foreign_key "socios", "users"
 end
