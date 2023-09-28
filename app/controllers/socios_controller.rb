@@ -31,6 +31,12 @@ class SociosController < ApplicationController
     
     def edit
         @socio = Socio.find(params[:id])
+        if current_user == @socio.author
+            # render :edit
+            # Allow the author to edit the post
+        else
+            redirect_to socios_path, alert: 'You are not authorized to edit this post.'
+        end
     end
     
     def update
@@ -44,8 +50,12 @@ class SociosController < ApplicationController
     
     def destroy
         @socio = Socio.find(params[:id])
-        @socio.destroy
-        redirect_to socios_url, notice: 'Socio was successfully destroyed.'
+        if current_user == @socio.user
+            @socio.destroy
+            redirect_to socios_url, notice: 'Socio was successfully destroyed.'
+        else
+            redirect_to socios_url, alert: 'You are not authorized to delete this post.'
+        end
     end
     
     private
