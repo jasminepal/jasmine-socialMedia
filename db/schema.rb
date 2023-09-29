@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_182316) do
   add_foreign_key "followeds", "users", column: "followed_id"
   add_foreign_key "followeds", "users", column: "follower_id"
   add_foreign_key "likes", "socios"
-  add_foreign_key "relationships", "followeds"
-  add_foreign_key "relationships", "followers"
+  add_foreign_key "relationships", "users", column: "followed_id"
+  add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "socios", "users"
 end
