@@ -24,7 +24,14 @@
   </p> 
 <% end %>
 
+<!-- Display likes count -->
 <p><%= @socio.likes.count %> <%= (@socio.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+<!-- Display followers count -->
+<p>Followers: <%= @user.followers_count %></p>
+<!-- Display following count -->
+<p>Following: <%= @user.following_count %></p>
+
+
 <% pre_like = @socio.likes.find { |like| like&.user_id == current_user&.id} %>
 <% if pre_like %>
   <%= button_to 'Unlike', socio_like_path(@socio, pre_like.id), method: :delete %>
@@ -43,11 +50,6 @@
     <%= form.text_area :content, placeholder: "Add a comment..." %>
     <%= form.submit "Comment" %>
 <% end %>
-
-
-
-
-
 
 
 
