@@ -4,7 +4,7 @@ class RelationshipsController < ApplicationController
   def create
     user_to_follow = User.find(params[:user_id])
     current_user.follow(user_to_follow)
-    redirect_to user_path(user_to_follow)
+    redirect_to socio_path(params[:socio_id])
   end
 
   def destroy
@@ -13,6 +13,6 @@ class RelationshipsController < ApplicationController
     user_to_unfollow = relationship.followed
     relationship.destroy
     # current_user.unfollow(user_to_unfollow)
-    redirect_to user_path(user_to_unfollow), notice: 'You have unfollowed this user.'
+    redirect_to socio_path(params[:socio_id]), notice: 'You have unfollowed this user.'
   end
 end
